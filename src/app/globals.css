@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Brand theme — single source of truth for colours and type.
+   Turquoise #02A9BA and orange #F47735 come from the storefront.
+   Text-safe shades are chosen for WCAG AA contrast.
+---------------------------------------------------------------- */
+@theme {
+  --color-brand-50: #e8f8fa;
+  --color-brand-100: #c6eef2;
+  --color-brand-200: #8fdde6;
+  --color-brand-300: #4fcbd8;
+  --color-brand-400: #20bacb;
+  --color-brand-500: #02a9ba; /* storefront turquoise */
+  --color-brand-600: #018a98;
+  --color-brand-700: #01707b; /* text-safe on light */
+  --color-brand-800: #035a63;
+  --color-brand-900: #053b42; /* deep turquoise hero */
+  --color-brand-950: #032a2f;
+
+  --color-accent-50: #fef3ec;
+  --color-accent-100: #fde2d1;
+  --color-accent-300: #f9a77a;
+  --color-accent-400: #f68b52;
+  --color-accent-500: #f47735; /* storefront orange (use dark text on it) */
+  --color-accent-600: #d9601f;
+  --color-accent-700: #a94614; /* text-safe on light */
+
+  --color-cream: #faf7f2;
+  --color-sand: #f2ece2;
+  --color-ink: #1c1f22;
+  --color-muted: #4a5157;
+  --color-line: #e4ddd1;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 2px rgb(28 31 34 / 0.04), 0 8px 24px -12px rgb(28 31 34 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(28 31 34 / 0.05), 0 18px 40px -16px rgb(5 59 66 / 0.28);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-accent-300);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-accent-500);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+/* Reveal-on-scroll: content is visible by default; JS opts in. */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s var(--ease-out-soft),
+    transform 0.7s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.animate-float-soft {
+  animation: float-soft 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
