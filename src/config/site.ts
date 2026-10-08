@@ -27,13 +27,21 @@ export type SiteConfig = {
   social: { label: string; href: string }[];
 };
 
+function resolveSiteUrl() {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL;
+  if (explicit) return explicit.replace(/\/$/, "");
+  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+  if (vercel) return `https://${vercel}`;
+  return "http://localhost:3000";
+}
+
 export const site: SiteConfig = {
   legalName: "Hadi Halal Foods Grocery ltd",
   shortName: "Hadi Halal Foods",
   wordmark: { primary: "Hadi", secondary: "Halal Foods Grocery" },
   description:
     "Hadi Halal Foods Grocery ltd is a neighbourhood grocery shop for fresh fruit and vegetables, halal food, Asian groceries, dairy, confectionery and everyday essentials.",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),
+  url: resolveSiteUrl(),
   contact: {
     phone: null,
     email: null,
