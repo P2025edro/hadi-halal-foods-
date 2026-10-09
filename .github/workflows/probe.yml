@@ -1,0 +1,18 @@
+name: probe
+on:
+  push:
+    branches: [qa-tools]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          mkdir out && cd out
+          curl -s -o o.json -w "%{http_code}" "https://api.openverse.org/v1/images/?q=lemons&source=stocksnap&page_size=1" > status.txt
+          date -u > when.txt
+          git init -q -b qa-out
+          git config user.name qa-bot; git config user.email qa-bot@users.noreply.github.com
+          git add -A && git commit -qm probe
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" qa-out
