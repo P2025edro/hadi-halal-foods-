@@ -8,11 +8,13 @@ permissions:
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - run: pip install -q pillow
-      - run: python tools/fetch.py
+      - run: mkdir -p out && python tools/fetch.py > out/run.txt 2>&1
       - name: Publish to qa-photos
+        if: always()
         run: |
           cd out
           git init -q -b qa-photos

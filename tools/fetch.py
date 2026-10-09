@@ -3,17 +3,21 @@ record licence/credit metadata, and build a review sheet."""
 import json, io, os, urllib.request, urllib.parse
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126 Safari/537.36"}
-def get(u, t=90):
+def get(u, t=40):
     r = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=t)
     return r.read(), r.geturl(), r.headers.get("content-type", "")
 sel = json.load(open("tools/selection.json"))
+import traceback, sys
 os.makedirs("out/photos", exist_ok=True); os.makedirs("out/review", exist_ok=True)
 meta, log, cache = [], [], {}
 for s in sel:
     q = s["q"]
     if q not in cache:
-        u = "https://api.openverse.org/v1/images/?" + urllib.parse.urlencode({"q": q, "source": "stocksnap", "page_size": 40})
-        cache[q] = json.loads(get(u)[0])["results"]
+        try:
+            u = "https://api.openverse.org/v1/images/?" + urllib.parse.urlencode({"q": q, "source": "stocksnap", "page_size": 40})
+            cache[q] = json.loads(get(u)[0])["results"]
+        except Exception as e:
+            log.append(f"search {q} FAIL {e}"); cache[q] = []
     m = next((p for p in cache[q] if s["id"] in p["url"]), None)
     best = None
     for cand in [f"https://stocksnap.io/download-photo/{s['id']}", f"https://cdn.stocksnap.io/img-thumbs/2880w/{s['id']}.jpg",
