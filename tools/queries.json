@@ -1,26 +1,122 @@
 [
- {"key":"hero-produce","q":"vegetables market"},
- {"key":"hero-produce2","q":"fresh vegetables"},
- {"key":"fruit","q":"fruit"},
- {"key":"fruit2","q":"oranges"},
- {"key":"veg","q":"vegetables"},
- {"key":"meat","q":"raw meat"},
- {"key":"meat2","q":"butcher"},
- {"key":"spices","q":"spices"},
- {"key":"rice","q":"rice lentils"},
- {"key":"dairy","q":"milk"},
- {"key":"dairy2","q":"cheese"},
- {"key":"sweets","q":"chocolate"},
- {"key":"sweets2","q":"candy"},
- {"key":"news","q":"newspaper"},
- {"key":"grocery","q":"grocery store"},
- {"key":"shop","q":"shop shelves"},
- {"key":"phone","q":"smartphone hand"},
- {"key":"drinks","q":"soft drinks bottles"},
- {"key":"crates","q":"crates"},
- {"key":"lemons","q":"lemons"},
- {"key":"wm-market","q":"vegetable stall","source":"wikimedia","license":"cc0,by"},
- {"key":"wm-spice","q":"spice shop","source":"wikimedia","license":"cc0,by"},
- {"key":"wm-grocer","q":"greengrocer","source":"wikimedia","license":"cc0,by"},
- {"key":"rp-produce","q":"vegetables","source":"rawpixel","license":"cc0,pdm"}
+ {
+  "key": "lamb",
+  "q": "lamb"
+ },
+ {
+  "key": "chicken",
+  "q": "chicken"
+ },
+ {
+  "key": "steak",
+  "q": "steak"
+ },
+ {
+  "key": "beef",
+  "q": "beef"
+ },
+ {
+  "key": "lentils",
+  "q": "lentils"
+ },
+ {
+  "key": "rice",
+  "q": "rice"
+ },
+ {
+  "key": "beans",
+  "q": "beans"
+ },
+ {
+  "key": "flour",
+  "q": "flour"
+ },
+ {
+  "key": "dates",
+  "q": "dates"
+ },
+ {
+  "key": "nuts",
+  "q": "nuts"
+ },
+ {
+  "key": "olives",
+  "q": "olives"
+ },
+ {
+  "key": "eggs",
+  "q": "eggs"
+ },
+ {
+  "key": "yogurt",
+  "q": "yogurt"
+ },
+ {
+  "key": "bread",
+  "q": "bread"
+ },
+ {
+  "key": "tea",
+  "q": "tea"
+ },
+ {
+  "key": "chocolate-bar",
+  "q": "chocolate bar"
+ },
+ {
+  "key": "cookies",
+  "q": "cookies"
+ },
+ {
+  "key": "soda",
+  "q": "soda"
+ },
+ {
+  "key": "water-bottles",
+  "q": "water bottles"
+ },
+ {
+  "key": "shopping-bag-groceries",
+  "q": "shopping bag groceries"
+ },
+ {
+  "key": "market-stall",
+  "q": "market stall"
+ },
+ {
+  "key": "herbs",
+  "q": "herbs"
+ },
+ {
+  "key": "bananas",
+  "q": "bananas"
+ },
+ {
+  "key": "apples",
+  "q": "apples"
+ },
+ {
+  "key": "onions",
+  "q": "onions"
+ },
+ {
+  "key": "potatoes",
+  "q": "potatoes"
+ },
+ {
+  "key": "garlic",
+  "q": "garlic"
+ },
+ {
+  "key": "grocery-bag",
+  "q": "grocery bag"
+ },
+ {
+  "key": "kitchen-ingredients",
+  "q": "kitchen ingredients"
+ },
+ {
+  "key": "farmers-market",
+  "q": "farmers market"
+ }
 ]
