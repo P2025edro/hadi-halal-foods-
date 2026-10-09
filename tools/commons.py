@@ -11,7 +11,7 @@ jobs = json.load(open("tools/commons-queries.json"))
 os.makedirs("out/commons", exist_ok=True)
 db = {}
 for job in jobs:
-    params = {"action": "query", "format": "json", "generator": "search", "gsrnamespace": 6, "gsrlimit": 30,
+    params = {"action": "query", "format": "json", "generator": "search", "gsrnamespace": 6, "gsrlimit": 40,
               "gsrsearch": job["q"] + " filew:>2800 filetype:bitmap", "prop": "imageinfo",
               "iiprop": "url|size|extmetadata", "iiurlwidth": 400}
     time.sleep(4)
