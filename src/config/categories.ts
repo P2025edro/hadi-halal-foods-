@@ -1,23 +1,16 @@
+import type { PhotoKey } from "./images";
+
 /**
- * Store sections. Copy describes what each aisle is for, not specific stock,
- * prices or guaranteed availability.
+ * Store sections. Copy describes what each section is for — not specific
+ * stock, prices, brands or guaranteed availability.
  */
-
-export type ArtKey =
-  | "fruit"
-  | "vegetables"
-  | "halal"
-  | "asian"
-  | "dairy"
-  | "confectionery"
-  | "newspapers"
-  | "topups";
-
 export type Category = {
   slug: string;
   name: string;
-  art: ArtKey;
+  photo: PhotoKey;
+  /** Short line shown under the name on cards. */
   tagline: string;
+  /** One or two sentences for the category index and page intro. */
   summary: string;
   body: string[];
   lookFor: string[];
@@ -27,98 +20,98 @@ export const categories: Category[] = [
   {
     slug: "fruit",
     name: "Fruit",
-    art: "fruit",
-    tagline: "Colour for the fruit bowl",
-    summary: "Everyday favourites and seasonal fruit for lunchboxes, breakfasts and snacking.",
+    photo: "fruit",
+    tagline: "Everyday fruit and what’s in season",
+    summary: "Fruit for the fruit bowl, lunchboxes and breakfast, with seasonal arrivals through the year.",
     body: [
-      "Our fruit section is where most visits start. It is set up for quick everyday top-ups as well as a bigger weekly shop.",
-      "What is on the shelf changes with the seasons, so pop in to see what has arrived.",
+      "Most visits start here. The fruit section covers the everyday basics, from apples and bananas to citrus for cooking and juicing.",
+      "What’s on the shelf changes with the seasons, so it’s worth a look each time you’re in.",
     ],
-    lookFor: ["Everyday staples like apples and bananas", "Citrus for cooking and juicing", "Seasonal fruit when it is available"],
+    lookFor: ["Apples, bananas and other everyday fruit", "Lemons, limes and oranges", "Seasonal fruit when it’s available"],
   },
   {
     slug: "vegetables",
     name: "Vegetables",
-    art: "vegetables",
-    tagline: "The base of every good meal",
-    summary: "Kitchen staples and fresh vegetables for home cooking, from weeknight dinners to family meals.",
+    photo: "vegetables",
+    tagline: "The base of most home cooking",
+    summary: "Onions, potatoes, greens and the vegetables most recipes start with.",
     body: [
-      "From onions and potatoes to leafy greens, the vegetable section covers the basics most recipes start with.",
-      "Range varies through the year. If you are cooking something specific, ask in store.",
+      "The vegetable section is built around what people cook every week: onions, garlic, potatoes, carrots, peppers and greens.",
+      "Range varies through the year. If you need something specific for a dish, ask at the counter.",
     ],
-    lookFor: ["Onions, potatoes and root vegetables", "Fresh herbs and greens", "Peppers, tomatoes and cooking staples"],
+    lookFor: ["Onions, garlic and potatoes", "Carrots, peppers and tomatoes", "Fresh herbs and leafy greens"],
   },
   {
     slug: "halal-food-and-meat",
     name: "Halal Food & Meat",
-    art: "halal",
-    tagline: "Halal choices for your table",
-    summary: "A halal food selection for everyday cooking and family meals.",
+    photo: "halal",
+    tagline: "Halal food for family meals",
+    summary: "Halal food for everyday cooking, from weeknight dinners to bigger family meals.",
     body: [
-      "Halal food is at the heart of the shop. This section brings together halal products for home cooking.",
-      "Please ask a member of staff about specific products and how they are sourced.",
+      "Halal food is at the centre of the shop, and this section brings it together for home cooking.",
+      "For questions about a particular product or how it’s sourced, please ask a member of staff in store.",
     ],
     lookFor: ["Halal food for everyday cooking", "Ingredients for family meals", "Ask in store about specific products"],
   },
   {
     slug: "asian-groceries",
     name: "Asian Groceries",
-    art: "asian",
-    tagline: "Flavours from home",
-    summary: "Rice, spices, lentils, sauces and pantry staples for cooking the dishes you love.",
+    photo: "asian",
+    tagline: "Rice, pulses, spices and sauces",
+    summary: "Rice, flour, lentils, spices and pantry staples for the dishes you cook at home.",
     body: [
-      "The Asian grocery aisles are stocked for real home cooking, with pantry staples that can be hard to find in a regular supermarket.",
-      "Looking for something in particular? Let us know and we will tell you if we have it.",
+      "The Asian grocery shelves are stocked for real home cooking, with staples that can be hard to find in a large supermarket.",
+      "If you’re looking for a particular brand or ingredient, ask us and we’ll tell you if we have it.",
     ],
-    lookFor: ["Rice, flour and lentils", "Spices and spice blends", "Sauces, pickles and pantry staples"],
+    lookFor: ["Rice, flour and lentils", "Whole and ground spices", "Sauces, pickles and pantry staples"],
   },
   {
     slug: "dairy",
     name: "Dairy",
-    art: "dairy",
-    tagline: "Chilled everyday basics",
-    summary: "Milk, yoghurt, butter and cheese from the chiller, ready for the week ahead.",
+    photo: "dairy",
+    tagline: "Milk, yoghurt, butter and cheese",
+    summary: "Chilled basics for the week: milk, yoghurt, butter and cheese.",
     body: [
-      "Our chilled section covers the everyday dairy basics most households go through every week.",
-      "Handy for a quick stop when you have run out of milk on the way home.",
+      "The chiller covers the dairy most households go through every week.",
+      "Handy when you’ve run out of milk on the way home.",
     ],
-    lookFor: ["Milk and cream", "Yoghurt and butter", "Cheese and chilled basics"],
+    lookFor: ["Milk and cream", "Yoghurt and butter", "Cheese and other chilled basics"],
   },
   {
     slug: "confectionery",
     name: "Confectionery",
-    art: "confectionery",
-    tagline: "Something sweet",
-    summary: "Chocolate, sweets, biscuits and treats for sharing, gifting or a little pick-me-up.",
+    photo: "confectionery",
+    tagline: "Chocolate, sweets and biscuits",
+    summary: "Chocolate, sweets and biscuits for the tea break, the kids or a visit to family.",
     body: [
-      "Treats for the kids, biscuits for the tea break and sweets for sharing.",
-      "A good spot for something small to bring when visiting friends and family.",
+      "Biscuits for the tea break, sweets for the kids and chocolate for sharing.",
+      "A good place to pick up something small when you’re visiting friends or family.",
     ],
     lookFor: ["Chocolate and sweets", "Biscuits and snacks", "Treats for sharing"],
   },
   {
     slug: "newspapers-and-essentials",
     name: "Newspapers & Essentials",
-    art: "newspapers",
-    tagline: "The daily bits and pieces",
-    summary: "Newspapers alongside household and everyday essentials, all in one stop.",
+    photo: "newspapers",
+    tagline: "The paper and the household basics",
+    summary: "Newspapers alongside household and everyday essentials, in the same stop.",
     body: [
-      "Pick up a newspaper together with the household and personal essentials you need to keep the week running.",
+      "Pick up the paper with the household and personal basics that keep the week running.",
       "It saves a separate trip for the small things.",
     ],
-    lookFor: ["Newspapers", "Household cleaning basics", "Everyday personal essentials"],
+    lookFor: ["Newspapers", "Household cleaning basics", "Everyday personal care"],
   },
   {
     slug: "top-ups-and-convenience",
     name: "Top-Ups & Convenience",
-    art: "topups",
-    tagline: "Quick and close to home",
-    summary: "Phone top-ups and convenience items for when you need something quickly.",
+    photo: "topups",
+    tagline: "Phone top-ups and quick essentials",
+    summary: "Phone top-ups and grab-and-go items for when you need something quickly.",
     body: [
-      "A local shop is often the quickest way to sort the small things. Ask at the counter about top-ups.",
-      "Grab drinks, snacks and everyday convenience items while you are here.",
+      "Ask at the counter about phone top-ups.",
+      "Drinks, snacks and everyday convenience items are close to hand for a quick stop.",
     ],
-    lookFor: ["Phone top-ups (ask at the counter)", "Drinks and snacks", "Grab-and-go convenience items"],
+    lookFor: ["Phone top-ups (ask at the counter)", "Drinks and snacks", "Grab-and-go items"],
   },
 ];
 

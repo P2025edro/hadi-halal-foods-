@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CircleCheck, ChevronRight, MessageCircle } from "lucide-react";
-import { CategoryArt } from "@/components/art/CategoryArt";
 import { CategoryCard } from "@/components/CategoryCard";
-import { ButtonLink, Container, Eyebrow } from "@/components/ui";
+import { Photo } from "@/components/Photo";
+import { Container, TextLink } from "@/components/ui";
 import { categories, getCategory } from "@/config/categories";
 import { site } from "@/config/site";
 
@@ -33,92 +32,81 @@ export default async function CategoryPage({ params }: Props) {
   if (!category) notFound();
 
   const index = categories.findIndex((c) => c.slug === category.slug);
-  const related = [1, 2, 3].map((n) => categories[(index + n) % categories.length]!).filter(Boolean);
+  const related = [1, 2, 3, 4].map((n) => categories[(index + n) % categories.length]!);
 
   return (
     <>
-      <section className="relative overflow-hidden bg-brand-900 text-white">
-        <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 size-96 rounded-full bg-brand-500/20 blur-3xl" />
-        <Container className="relative grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1.1fr_1fr] lg:py-20">
-          <div>
-            <nav aria-label="Breadcrumb" className="mb-6">
-              <ol className="flex flex-wrap items-center gap-1.5 text-sm text-white/70">
-                <li>
-                  <Link href="/" className="rounded hover:text-white">
-                    Home
-                  </Link>
-                </li>
-                <li aria-hidden="true">
-                  <ChevronRight className="size-4" />
-                </li>
-                <li>
-                  <Link href="/categories" className="rounded hover:text-white">
-                    Categories
-                  </Link>
-                </li>
-                <li aria-hidden="true">
-                  <ChevronRight className="size-4" />
-                </li>
-                <li aria-current="page" className="font-medium text-white">
-                  {category.name}
-                </li>
-              </ol>
-            </nav>
-            <Eyebrow tone="light">{category.tagline}</Eyebrow>
-            <h1 className="text-4xl font-extrabold leading-[1.05] sm:text-5xl lg:text-6xl">{category.name}</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">{category.summary}</p>
-          </div>
-          <div className="mx-auto w-full max-w-md rounded-[2rem] bg-cream p-4 shadow-[var(--shadow-lift)]">
-            <CategoryArt art={category.art} className="h-auto w-full" />
-          </div>
-        </Container>
+      {/* Photograph left, title and summary right */}
+      <section className="grid lg:grid-cols-12">
+        <Photo name={category.photo} priority sizes="(min-width: 1024px) 58vw, 100vw" className="aspect-[4/3] lg:col-span-7 lg:aspect-auto lg:min-h-[540px]" />
+        <div className="flex flex-col justify-end px-4 pb-12 pt-8 sm:px-6 lg:col-span-5 lg:pb-16 lg:pl-14 lg:pr-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] lg:pt-16">
+          <nav aria-label="Breadcrumb" className="mb-8">
+            <ol className="flex flex-wrap items-center gap-2 text-[0.9rem] text-muted">
+              <li>
+                <Link href="/" className="hover:text-teal hover:underline">
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link href="/categories" className="hover:text-teal hover:underline">
+                  Categories
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page" className="text-teal">
+                {category.name}
+              </li>
+            </ol>
+          </nav>
+          <h1 className="text-display">{category.name}</h1>
+          <p className="mt-5 max-w-md text-lead text-muted">{category.summary}</p>
+        </div>
       </section>
 
-      <section className="py-16 sm:py-20">
-        <Container className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-          <div className="space-y-5 text-lg leading-relaxed text-muted">
-            <h2 className="text-2xl font-extrabold text-ink sm:text-3xl">About this section</h2>
+      <section className="border-t border-line py-14 lg:py-20">
+        <Container className="grid gap-12 lg:grid-cols-12">
+          <div className="max-w-[36rem] space-y-5 text-lead lg:col-span-7">
             {category.body.map((p) => (
               <p key={p}>{p}</p>
             ))}
+            <p className="pt-2 text-base text-muted">
+              Availability changes, so please check in store, or{" "}
+              <TextLink href="/contact" className="text-turquoise-ink">
+                ask us about an item
+              </TextLink>
+              .
+            </p>
           </div>
-          <aside aria-labelledby="look-for" className="h-fit rounded-[var(--radius-card)] border border-line bg-white p-6 sm:p-8">
-            <h2 id="look-for" className="text-xl font-bold">
+          <aside aria-labelledby="look-for" className="lg:col-span-4 lg:col-start-9">
+            <h2 id="look-for" className="text-heading">
               What to look for
             </h2>
-            <ul className="mt-5 space-y-3">
+            <ul className="mt-5 border-b border-line">
               {category.lookFor.map((item) => (
-                <li key={item} className="flex gap-3 text-muted">
-                  <CircleCheck aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
+                <li key={item} className="border-t border-line py-3.5 text-muted">
                   {item}
                 </li>
               ))}
             </ul>
-            <p className="mt-6 border-t border-line pt-5 text-sm text-muted">
-              Availability changes, so please check in store or ask us about specific items.
-            </p>
-            <ButtonLink href="/contact" variant="outline-dark" className="mt-5 w-full">
-              <MessageCircle aria-hidden="true" className="size-4" />
-              Ask about an item
-            </ButtonLink>
           </aside>
         </Container>
       </section>
 
-      <section aria-labelledby="related-title" className="bg-white py-16 sm:py-20">
+      <section aria-labelledby="related-title" className="bg-stone py-14 lg:py-20">
         <Container>
-          <div className="mb-8 flex items-end justify-between gap-4">
-            <h2 id="related-title" className="text-2xl font-extrabold sm:text-3xl">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <h2 id="related-title" className="text-title">
               More around the shop
             </h2>
-            <ButtonLink href="/categories" variant="ghost-dark" arrow>
+            <TextLink href="/categories" className="text-turquoise-ink">
               All categories
-            </ButtonLink>
+            </TextLink>
           </div>
-          <ul className="grid grid-cols-1 gap-5 min-[420px]:grid-cols-2 lg:grid-cols-3">
-            {related.map((c, i) => (
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4">
+            {related.map((c) => (
               <li key={c.slug}>
-                <CategoryCard category={c} index={i} />
+                <CategoryCard category={c} sizes="(min-width: 1280px) 290px, (min-width: 1024px) 23vw, 46vw" />
               </li>
             ))}
           </ul>

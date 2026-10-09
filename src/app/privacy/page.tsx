@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { TriangleAlert } from "lucide-react";
-import { Container, PageHeader } from "@/components/ui";
+import Link from "next/link";
+import { Container } from "@/components/ui";
 import { site } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -26,20 +26,21 @@ export default function PrivacyPage() {
     : "contact us using the form on our Contact page";
 
   return (
-    <>
-      <PageHeader eyebrow="Legal" title="Privacy notice" intro={`How ${site.legalName} handles personal data sent through this website.`} />
-      <section className="py-16 sm:py-20">
-        <Container className="max-w-3xl">
-          <div role="note" className="mb-10 flex gap-3 rounded-xl border border-accent-300 bg-accent-50 p-5 text-ink">
-            <TriangleAlert aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-accent-700" />
+      <section className="pb-24 pt-12 lg:pt-16">
+        <Container className="max-w-[760px]">
+          <p className="kicker mb-4">Legal</p>
+          <h1 className="text-title">Privacy notice</h1>
+          <p className="mt-4 text-muted">How {site.legalName} handles personal data sent through this website.</p>
+
+          <div role="note" className="my-10 border-l-4 border-orange bg-stone px-5 py-4">
             <p>
-              <strong>Draft, pending legal review.</strong> This notice describes how the website currently handles
-              data. It has not yet been reviewed by a legal professional and may change.
+              <strong className="text-teal">Draft, pending legal review.</strong> This notice describes how the website
+              currently handles data. It has not yet been reviewed by a legal professional and may change.
             </p>
           </div>
 
-          <div className="space-y-10 text-lg leading-relaxed text-muted [&_h2]:mb-3 [&_h2]:text-2xl [&_h2]:font-extrabold [&_h2]:text-ink [&_li]:ml-5 [&_li]:list-disc [&_ul]:space-y-2">
-            <p className="text-base">Last updated: {lastUpdated}</p>
+          <div className="space-y-10 leading-relaxed text-ink/90 [&_h2]:mb-3 [&_h2]:text-heading [&_li]:ml-5 [&_li]:list-disc [&_li]:marker:text-turquoise [&_ul]:space-y-2">
+            <p className="text-[0.95rem] text-muted">Last updated: {lastUpdated}</p>
 
             <section>
               <h2>Who we are</h2>
@@ -122,7 +123,7 @@ export default function PrivacyPage() {
                 You can also complain to the Data Protection Commission (Ireland) at{" "}
                 <a
                   href="https://www.dataprotection.ie"
-                  className="font-semibold text-brand-700 underline underline-offset-2 hover:text-brand-900"
+                  className="text-link font-semibold text-turquoise-ink"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -133,12 +134,19 @@ export default function PrivacyPage() {
             </section>
 
             <section>
+              <h2>Photography on this website</h2>
+              <p>
+                Food photographs on this website are licensed stock images. They are not photographs of our shop.
+                Credits and licences are listed on the <Link href="/credits" className="text-link font-semibold text-turquoise-ink">photo credits</Link> page.
+              </p>
+            </section>
+
+            <section>
               <h2>Changes to this notice</h2>
               <p>We may update this notice. The date at the top shows when it was last changed.</p>
             </section>
           </div>
         </Container>
       </section>
-    </>
   );
 }

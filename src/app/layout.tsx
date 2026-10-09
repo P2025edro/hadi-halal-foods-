@@ -1,20 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Inter, Manrope } from "next/font/google";
+import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { RevealObserver } from "@/components/Reveal";
 import { site } from "@/config/site";
 import { localBusinessJsonLd } from "@/lib/seo";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const manrope = Manrope({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-fraunces",
   display: "swap",
-  weight: ["600", "700", "800"],
+  axes: ["SOFT", "opsz"],
 });
+const hanken = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -38,14 +37,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#053b42",
+  themeColor: "#07393d",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-IE" className={`${inter.variable} ${manrope.variable}`}>
+    <html lang="en-IE" className={`${fraunces.variable} ${hanken.variable}`}>
       <body className="flex min-h-dvh flex-col">
         <script
           type="application/ld+json"
@@ -56,7 +55,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {children}
         </main>
         <Footer />
-        <RevealObserver />
       </body>
     </html>
   );

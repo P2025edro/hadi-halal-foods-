@@ -1,86 +1,84 @@
-import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Apple, Clock, HandHeart, MapPin, ShoppingBasket, Sparkles, Store } from "lucide-react";
-import { CategoryArt, EditorialArt, HeroArt } from "@/components/art/CategoryArt";
 import { CategoryCard } from "@/components/CategoryCard";
-import { ButtonLink, Container, Eyebrow, SectionHeading, cx } from "@/components/ui";
-import { categories, type ArtKey } from "@/config/categories";
+import { Photo } from "@/components/Photo";
+import { ButtonLink, Container, TextLink } from "@/components/ui";
+import { categories } from "@/config/categories";
+import type { PhotoKey } from "@/config/images";
 import { shopPhotos } from "@/config/photos";
 import { hasVisitDetails, site } from "@/config/site";
 
 const features = [
-  { icon: Apple, title: "Fresh Produce", text: "Fruit and vegetables for everyday cooking" },
-  { icon: HandHeart, title: "Halal Selection", text: "Halal food for family meals" },
-  { icon: ShoppingBasket, title: "Everyday Essentials", text: "The basics, all in one stop" },
-  { icon: Store, title: "Local Convenience", text: "Your grocery, close to home" },
+  { title: "Fresh produce", text: "Fruit and vegetables for everyday cooking." },
+  { title: "Halal selection", text: "Halal food for family meals." },
+  { title: "Everyday essentials", text: "Dairy, pantry staples and household basics." },
+  { title: "Local convenience", text: "A quick stop, close to home." },
 ];
 
 const highlights = [
-  { title: "Fresh, everyday food", text: "Fruit, vegetables and chilled basics for the meals you cook every week." },
-  { title: "Flavours you know", text: "Halal food, spices and Asian pantry staples alongside the everyday shop." },
-  { title: "Quick, friendly stops", text: "Pop in for one thing or a full basket. Ask us if you can’t find something." },
+  {
+    title: "Fresh food for the week",
+    text: "Fruit, vegetables and chilled basics for the meals you cook most often.",
+  },
+  {
+    title: "Flavours from home",
+    text: "Halal food, spices, rice and Asian pantry staples alongside the everyday shop.",
+  },
+  {
+    title: "Easy to pop in",
+    text: "Come in for one thing or a full basket. If you can’t find something, ask us.",
+  },
 ];
 
-type Showcase = { title: string; text: string; art: ArtKey; href: string; tint: string; big?: boolean };
-
-const showcase: Showcase[] = [
-  { title: "From the produce stand", text: "Colourful fruit and vegetables for the week ahead.", art: "vegetables", href: "/categories/vegetables", tint: "bg-[#eef6e8]", big: true },
-  { title: "Pantry & spice shelf", text: "Rice, lentils, spices and sauces.", art: "asian", href: "/categories/asian-groceries", tint: "bg-accent-50" },
-  { title: "From the chiller", text: "Milk, yoghurt, butter and cheese.", art: "dairy", href: "/categories/dairy", tint: "bg-brand-50" },
-  { title: "Little treats", text: "Chocolate, sweets and biscuits.", art: "confectionery", href: "/categories/confectionery", tint: "bg-sand" },
-  { title: "Daily bits & pieces", text: "Newspapers and household basics.", art: "newspapers", href: "/categories/newspapers-and-essentials", tint: "bg-brand-50" },
+type Aisle = { title: string; text: string; photo: PhotoKey; href: string };
+const aisles: Aisle[] = [
+  { title: "The produce shelves", text: "Aubergines, onions, peppers, greens and the week’s vegetables.", photo: "produce", href: "/categories/vegetables" },
+  { title: "Spices and pantry", text: "Whole and ground spices, rice, flour and dried goods.", photo: "pantry", href: "/categories/asian-groceries" },
+  { title: "The fruit bowl", text: "Citrus, apples and seasonal fruit.", photo: "fruitBowl", href: "/categories/fruit" },
+  { title: "Pulses and grains", text: "Lentils, beans, seeds and grains.", photo: "pulses", href: "/categories/asian-groceries" },
 ];
+
+const heroGutter = "lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))]";
 
 export default function HomePage() {
+  const [mainAisle, ...otherAisles] = aisles;
   return (
     <>
-      {/* HERO */}
-      <section aria-labelledby="hero-title" className="relative overflow-hidden bg-brand-900 text-white">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <div className="absolute -left-40 top-10 size-[28rem] rounded-full bg-brand-500/15 blur-3xl" />
-          <div className="absolute -right-20 bottom-0 size-[30rem] rounded-full bg-brand-400/10 blur-3xl" />
-          <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(#fff_1px,transparent_1px)] [background-size:22px_22px]" />
+      {/* HERO: asymmetric — copy on deep teal, produce photograph bleeding to the right edge */}
+      <section aria-labelledby="hero-title" className="grid bg-paper lg:min-h-[min(calc(100svh-76px),720px)] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+        <div className="hero-photo relative order-1 aspect-[4/3] sm:aspect-[16/9] lg:order-2 lg:aspect-auto">
+          <Photo name="hero" priority sizes="(min-width: 1024px) 58vw, 100vw" className="absolute inset-0" />
         </div>
-
-        <Container className="relative grid items-center gap-8 pb-10 pt-12 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:gap-4 lg:pb-14 lg:pt-20">
-          <div className="max-w-xl">
-            <Eyebrow tone="light">Your neighbourhood grocery</Eyebrow>
-            <h1 id="hero-title" className="text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-[4.4rem]">
-              Fresh Choices <span className="block text-brand-300">for Every Home</span>
+        <div className={`on-dark order-2 flex flex-col justify-end bg-teal px-4 pb-12 pt-10 sm:px-6 lg:order-1 lg:pb-16 lg:pr-12 lg:pt-16 ${heroGutter}`}>
+          <div className="hero-copy max-w-[30rem]">
+            <p className="kicker mb-5">Your neighbourhood grocery</p>
+            <h1 id="hero-title" className="text-display text-paper">
+              Fresh Choices for Every Home
             </h1>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/80">
-              Fresh fruit and vegetables, halal food, Asian groceries, dairy and everyday essentials, all under one
-              roof at {site.legalName}.
+            <p className="mt-6 text-lead text-paper/80">
+              Fruit and vegetables, halal food, Asian groceries, dairy and the everyday essentials, all in one local shop.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/categories" arrow>
-                Explore Categories
-              </ButtonLink>
-              <ButtonLink href="/contact#visit" variant="outline-light">
-                <MapPin aria-hidden="true" className="size-4" />
-                Find Our Store
-              </ButtonLink>
+            <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+              <ButtonLink href="/categories">Explore categories</ButtonLink>
+              <TextLink href="/contact#visit" className="text-paper">
+                Find our store
+              </TextLink>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="relative mx-auto w-full max-w-[560px]">
-            <HeroArt className="animate-float-soft h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.25)]" />
-          </div>
-        </Container>
-
-        {/* Feature strip */}
-        <Container className="relative pb-10 lg:pb-14">
-          <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-            {features.map(({ icon: Icon, title, text }) => (
-              <li key={title} className="flex items-center gap-4 bg-brand-950/60 p-5 backdrop-blur-sm">
-                <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-500/20 text-brand-200 ring-1 ring-inset ring-brand-400/30">
-                  <Icon aria-hidden="true" className="size-6" />
-                </span>
-                <span>
-                  <span className="block font-display font-bold text-white">{title}</span>
-                  <span className="block text-sm text-white/70">{text}</span>
-                </span>
+      {/* What we're about, as plain statements rather than icon tiles */}
+      <section aria-label="What you’ll find at Hadi" className="border-b border-line">
+        <Container>
+          <ul className="grid grid-cols-1 divide-y divide-line sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4">
+            {features.map((f, i) => (
+              <li
+                key={f.title}
+                className={`py-6 sm:py-8 ${i % 2 === 1 ? "sm:border-l sm:border-line sm:pl-8" : ""} ${i === 2 ? "lg:border-l lg:border-line lg:pl-8" : ""} ${i >= 2 ? "sm:border-t sm:border-line lg:border-t-0" : ""}`}
+              >
+                <p className="font-semibold text-teal">{f.title}</p>
+                <p className="mt-1 text-[0.95rem] text-muted">{f.text}</p>
               </li>
             ))}
           </ul>
@@ -88,23 +86,26 @@ export default function HomePage() {
       </section>
 
       {/* SHOP BY CATEGORY */}
-      <section aria-labelledby="categories-title" className="py-20 sm:py-24">
+      <section aria-labelledby="categories-title" className="py-20 lg:py-28">
         <Container>
-          <SectionHeading
-            id="categories-title"
-            eyebrow="Shop by category"
-            title="Everything for the weekly shop"
-            intro="Browse the sections you’ll find in store, from fresh produce to the everyday bits and pieces."
-            action={
-              <ButtonLink href="/categories" variant="ghost-dark" arrow className="self-start md:self-auto">
-                View all categories
-              </ButtonLink>
-            }
-          />
-          <ul className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
-            {categories.map((c, i) => (
+          <div className="mb-10 flex flex-col gap-4 lg:mb-14 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+            <div className="max-w-xl">
+              <h2 id="categories-title" className="text-title">
+                Shop by category
+              </h2>
+              <p className="mt-4 text-muted">
+                Eight sections cover most of the weekly shop. Ranges change with the seasons, so ask us if you’re looking
+                for something in particular.
+              </p>
+            </div>
+            <TextLink href="/categories" className="shrink-0 text-turquoise-ink">
+              All categories
+            </TextLink>
+          </div>
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4 lg:gap-y-14">
+            {categories.map((c) => (
               <li key={c.slug}>
-                <CategoryCard category={c} index={i} />
+                <CategoryCard category={c} sizes="(min-width: 1280px) 290px, (min-width: 1024px) 23vw, 46vw" />
               </li>
             ))}
           </ul>
@@ -112,117 +113,92 @@ export default function HomePage() {
       </section>
 
       {/* EDITORIAL */}
-      <section aria-labelledby="editorial-title" className="pb-20 sm:pb-24">
+      <section aria-labelledby="editorial-title" className="bg-stone">
+        <div className="grid lg:grid-cols-12">
+          <Photo name="editorial" sizes="(min-width: 1024px) 58vw, 100vw" className="aspect-[4/3] lg:col-span-7 lg:aspect-auto lg:min-h-[620px]" />
+          <div className="px-4 py-14 sm:px-6 lg:col-span-5 lg:flex lg:flex-col lg:justify-center lg:py-20 lg:pl-14 lg:pr-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))]">
+            <h2 id="editorial-title" className="max-w-md text-title">
+              Your Neighbourhood Grocery, Made for Everyday Life
+            </h2>
+            <p className="mt-5 max-w-md text-muted">
+              A local shop that keeps the everyday simple: fresh food, familiar flavours and the basics you need, close to
+              home.
+            </p>
+            <dl className="mt-10 max-w-md">
+              {highlights.map((h) => (
+                <div key={h.title} className="border-t border-teal/15 py-5">
+                  <dt className="font-semibold text-teal">{h.title}</dt>
+                  <dd className="mt-1 text-muted">{h.text}</dd>
+                </div>
+              ))}
+            </dl>
+            <TextLink href="/about" className="mt-4 self-start text-turquoise-ink">
+              About the shop
+            </TextLink>
+          </div>
+        </div>
+      </section>
+
+      {/* DISCOVER WHAT'S IN STORE */}
+      <section aria-labelledby="discover-title" className="py-20 lg:py-28">
         <Container>
-          <div
-            data-reveal
-            className="relative grid overflow-hidden rounded-[2rem] bg-brand-900 text-white lg:grid-cols-[1fr_1.05fr]"
-          >
-            <div aria-hidden="true" className="pointer-events-none absolute -left-24 -top-24 size-80 rounded-full bg-brand-500/20 blur-3xl" />
-            <div className="relative p-8 sm:p-12 lg:p-14">
-              <Eyebrow tone="light">Made for everyday life</Eyebrow>
-              <h2 id="editorial-title" className="text-3xl font-extrabold leading-[1.1] sm:text-4xl">
-                Your Neighbourhood Grocery, Made for Everyday Life
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed text-white/80">
-                A local shop that keeps the everyday simple: fresh food, familiar flavours and the essentials you need,
-                close to home.
-              </p>
-              <ul className="mt-8 space-y-5">
-                {highlights.map((h, i) => (
-                  <li key={h.title} className="flex gap-4">
-                    <span className="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-accent-500 font-display text-sm font-extrabold text-ink">
-                      {i + 1}
-                    </span>
-                    <span>
-                      <span className="block font-display text-lg font-bold">{h.title}</span>
-                      <span className="mt-1 block text-white/75">{h.text}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <ButtonLink href="/about" variant="outline-light" arrow className="mt-10">
-                About the shop
-              </ButtonLink>
-            </div>
-            <div className="relative flex min-h-72 items-center bg-sand lg:min-h-full">
-              <EditorialArt className="h-auto w-full" />
+          <div className="mb-10 max-w-2xl lg:mb-14">
+            <h2 id="discover-title" className="text-title">
+              Discover What’s In Store
+            </h2>
+            <p className="mt-4 text-muted">A walk around the shelves. What’s in stock changes, so please check in store.</p>
+          </div>
+          <div className="grid gap-x-6 gap-y-10 lg:grid-cols-12">
+            {mainAisle && (
+              <Link href={mainAisle.href} className="group block lg:col-span-7">
+                <Photo
+                  name={mainAisle.photo}
+                  sizes="(min-width: 1024px) 700px, 100vw"
+                  className="aspect-[4/3] lg:aspect-[7/6]"
+                  imgClassName="transition-[scale] duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.03]"
+                />
+                <h3 className="mt-4 text-heading decoration-orange decoration-2 underline-offset-[6px] group-hover:underline">
+                  {mainAisle.title}
+                </h3>
+                <p className="mt-1 text-muted">{mainAisle.text}</p>
+              </Link>
+            )}
+            <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-2 lg:content-between">
+              {otherAisles.map((a, i) => (
+                <Link key={a.title} href={a.href} className={`group block ${i === 0 ? "sm:col-span-2" : ""}`}>
+                  <Photo
+                    name={a.photo}
+                    sizes="(min-width: 1024px) 480px, (min-width: 640px) 50vw, 100vw"
+                    className={i === 0 ? "aspect-[16/10]" : "aspect-square"}
+                    imgClassName="transition-[scale] duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.03]"
+                  />
+                  <h3 className="mt-4 text-[1.2rem] leading-tight decoration-orange decoration-2 underline-offset-[6px] group-hover:underline">
+                    {a.title}
+                  </h3>
+                  <p className="mt-1 text-[0.95rem] text-muted">{a.text}</p>
+                </Link>
+              ))}
             </div>
           </div>
         </Container>
       </section>
 
-      {/* DISCOVER WHAT'S IN STORE */}
-      <section aria-labelledby="discover-title" className="bg-white py-20 sm:py-24">
-        <Container>
-          <SectionHeading
-            id="discover-title"
-            eyebrow="In the aisles"
-            title="Discover What’s In Store"
-            intro="A look around the shop. Ranges change with the seasons, so pop in or ask us about anything in particular."
-          />
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
-            {showcase.map((s, i) => (
-              <li
-                key={s.title}
-                data-reveal
-                style={{ "--reveal-delay": `${i * 70}ms` } as CSSProperties}
-                className={cx(s.big && "sm:col-span-2 lg:row-span-2")}
-              >
-                <Link
-                  href={s.href}
-                  className={cx(
-                    "group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] p-6 transition-[box-shadow] duration-300 hover:shadow-[var(--shadow-lift)]",
-                    s.tint,
-                  )}
-                >
-                  <span className={cx("block", s.big ? "font-display text-2xl font-extrabold sm:text-3xl" : "font-display text-lg font-bold")}>
-                    {s.title}
-                  </span>
-                  <span className="mt-1 block text-muted">{s.text}</span>
-                  <CategoryArt
-                    art={s.art}
-                    className={cx(
-                      "mt-auto w-full transition-[scale] duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]",
-                      s.big ? "pt-6" : "pt-2",
-                    )}
-                  />
-                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">
-                    Explore
-                    <ArrowRight aria-hidden="true" className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
-
-      {/* GENUINE SHOP PHOTOS (shown only when approved current photos exist) */}
+      {/* GENUINE SHOP PHOTOS — appears only once approved, current photos are added */}
       {shopPhotos.length > 0 && (
-        <section aria-labelledby="shop-photos-title" className="py-20 sm:py-24">
+        <section aria-labelledby="shop-photos-title" className="border-t border-line py-20 lg:py-28">
           <Container>
-            <SectionHeading
-              id="shop-photos-title"
-              eyebrow="Inside the shop"
-              title="Take a look around"
-              action={
-                <ButtonLink href="/gallery" variant="ghost-dark" arrow>
-                  View gallery
-                </ButtonLink>
-              }
-            />
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+              <h2 id="shop-photos-title" className="text-title">
+                Inside the shop
+              </h2>
+              <TextLink href="/gallery" className="text-turquoise-ink">
+                View the gallery
+              </TextLink>
+            </div>
+            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {shopPhotos.slice(0, 3).map((p) => (
-                <li key={p.src} data-reveal className="overflow-hidden rounded-[var(--radius-card)] bg-sand">
-                  <Image
-                    src={p.src}
-                    alt={p.alt}
-                    width={p.width}
-                    height={p.height}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="aspect-[4/3] h-full w-full object-cover"
-                  />
+                <li key={p.src} className="photo aspect-[4/3]">
+                  <Image src={p.src} alt={p.alt} width={p.width} height={p.height} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="h-full w-full object-cover" />
                 </li>
               ))}
             </ul>
@@ -230,52 +206,28 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* CONTACT / LOCATION CTA */}
-      <section aria-labelledby="visit-cta-title" className="py-20 sm:py-24">
-        <Container>
-          <div
-            data-reveal
-            className="relative overflow-hidden rounded-[2rem] bg-accent-500 px-6 py-12 text-ink sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-10 lg:px-16 lg:py-16"
-          >
-            <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 size-72 rounded-full bg-white/20" />
-            <div aria-hidden="true" className="pointer-events-none absolute -bottom-24 right-40 size-56 rounded-full bg-accent-600/40" />
-            <div className="relative max-w-2xl">
-              <p className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em]">
-                <Sparkles aria-hidden="true" className="size-4" />
-                Come and see us
-              </p>
-              <h2 id="visit-cta-title" className="text-3xl font-extrabold leading-[1.1] sm:text-4xl">
-                Pop in for your next shop
-              </h2>
-              <p className="mt-4 text-lg leading-relaxed text-ink/85">
-                {hasVisitDetails
-                  ? "Find our address and details below, or send us a message with any questions."
-                  : "Have a question about the shop or looking for something specific? Send us a message and we’ll get back to you."}
-              </p>
-              {site.contact.openingHours && (
-                <p className="mt-4 inline-flex items-center gap-2 font-semibold">
-                  <Clock aria-hidden="true" className="size-5" />
-                  See opening hours on our contact page
-                </p>
-              )}
-            </div>
-            <div className="relative mt-8 flex flex-col gap-3 sm:flex-row lg:mt-0 lg:shrink-0">
-              <Link
-                href="/contact#visit"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 font-semibold text-white transition-[background-color,scale] duration-200 hover:bg-brand-950 active:scale-[0.98]"
-              >
-                <MapPin aria-hidden="true" className="size-4" />
-                Find Our Store
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-ink/30 px-6 font-semibold text-ink transition-colors duration-200 hover:border-ink hover:bg-white/20"
-              >
-                Contact us
-              </Link>
-            </div>
+      {/* VISIT */}
+      <section aria-labelledby="visit-title" className="grid lg:grid-cols-2">
+        <Photo name="visit" sizes="(min-width: 1024px) 50vw, 100vw" className="aspect-[16/10] lg:aspect-auto lg:min-h-[460px]" />
+        <div className="on-dark flex flex-col justify-center bg-teal px-4 py-14 sm:px-6 lg:px-16 lg:py-20">
+          <h2 id="visit-title" className="text-title text-paper">
+            Pop in for your next shop
+          </h2>
+          <p className="mt-4 max-w-md text-paper/80">
+            {hasVisitDetails
+              ? "Find our address and directions on the contact page, or send us a question before you visit."
+              : "Got a question about the shop, or looking for something specific? Send us a message and we’ll reply by email."}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <ButtonLink href="/contact#visit" variant="on-dark">
+              Find our store
+            </ButtonLink>
+            <ButtonLink href="/contact" variant="on-dark" className="border-transparent px-2 hover:bg-transparent hover:text-paper hover:underline">
+              Contact us
+            </ButtonLink>
           </div>
-        </Container>
+          <p className="mt-10 text-[0.875rem] text-paper/60">{site.legalName}</p>
+        </div>
       </section>
     </>
   );

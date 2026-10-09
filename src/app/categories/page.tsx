@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CategoryCard } from "@/components/CategoryCard";
-import { ButtonLink, Container, PageHeader } from "@/components/ui";
+import { Container, TextLink } from "@/components/ui";
 import { categories } from "@/config/categories";
 import { site } from "@/config/site";
 
@@ -13,28 +13,45 @@ export const metadata: Metadata = {
 export default function CategoriesPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="Categories"
-        title="Shop by category"
-        intro="Here’s what you’ll find around the shop. Ranges change with the seasons, so pop in or ask us about anything specific."
-      />
-      <section className="py-16 sm:py-20" aria-label="All categories">
+      {/* Compact title row with an index of sections */}
+      <section className="border-b border-line pb-10 pt-12 lg:pb-12 lg:pt-16">
+        <Container className="grid gap-8 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-6">
+            <h1 className="text-display">Categories</h1>
+            <p className="mt-5 max-w-md text-lead text-muted">
+              What you’ll find around the shop. Ranges change with the seasons, so ask us about anything specific.
+            </p>
+          </div>
+          <nav aria-label="Jump to a category" className="lg:col-span-5 lg:col-start-8">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[0.975rem]">
+              {categories.map((c) => (
+                <li key={c.slug}>
+                  <a href={`#${c.slug}`} className="text-teal/80 hover:text-teal hover:underline hover:decoration-orange hover:underline-offset-4">
+                    {c.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Container>
+      </section>
+
+      <section aria-label="All categories" className="py-14 lg:py-20">
         <Container>
-          <ul className="grid grid-cols-1 gap-5 min-[420px]:grid-cols-2 lg:grid-cols-4">
-            {categories.map((c, i) => (
-              <li key={c.slug}>
-                <CategoryCard category={c} index={i} headingLevel="h2" showSummary />
+          <ul className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:gap-y-20">
+            {categories.map((c) => (
+              <li key={c.slug} id={c.slug}>
+                <CategoryCard category={c} headingLevel="h2" layout="landscape" showSummary sizes="(min-width: 1280px) 600px, (min-width: 640px) 48vw, 100vw" />
               </li>
             ))}
           </ul>
-          <div className="mt-14 flex flex-col items-start gap-4 rounded-[var(--radius-card)] border border-line bg-white p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-            <p className="max-w-xl text-lg text-muted">
-              Can’t see what you’re after? Get in touch and we’ll let you know if we have it.
-            </p>
-            <ButtonLink href="/contact" arrow>
-              Ask us
-            </ButtonLink>
-          </div>
+          <p className="mt-20 max-w-xl border-t border-line pt-8 text-muted">
+            Can’t see what you’re after?{" "}
+            <TextLink href="/contact" className="text-turquoise-ink">
+              Send us a message
+            </TextLink>{" "}
+            and we’ll let you know if we have it.
+          </p>
         </Container>
       </section>
     </>

@@ -1,6 +1,6 @@
 # Hadi Halal Foods Grocery ltd — website
 
-Next.js (App Router) + TypeScript + Tailwind CSS v4 + Lucide icons.
+Next.js (App Router) + TypeScript + Tailwind CSS v4. Type: Fraunces (display) and Hanken Grotesk (text), self-hosted via `next/font`.
 
 ## Run locally
 
@@ -25,6 +25,8 @@ BASE_URL=http://localhost:3000 npm run test:contact
 | Business name, phone, email, address, map link, opening hours | `src/config/site.ts` |
 | Store categories and their copy | `src/config/categories.ts` |
 | Approved shop photos (homepage section + Gallery) | `src/config/photos.ts` + `public/images/shop/` |
+| Stock food photography, crops and credits | `src/config/images.ts` + `public/images/photos/` |
+| Wordmark | `src/components/brand/` |
 | Colours and fonts | `src/app/globals.css` (`@theme`) and `src/app/layout.tsx` |
 | Privacy notice (draft, pending legal review) | `src/app/privacy/page.tsx` |
 
@@ -32,6 +34,14 @@ BASE_URL=http://localhost:3000 npm run test:contact
 related UI (footer contact lines, visit card, map button, JSON-LD fields) is hidden
 automatically. The shop photo section only appears once `shopPhotos` has entries.
 Photos must be current, approved, and must not show former signage or business names.
+
+## Photography
+
+Food photos are openly licensed stock images (CC0, public domain and CC BY 2.0/4.0 from Wikimedia Commons and StockSnap).
+They do **not** show the shop. Each one is credited on `/credits`, which is generated from `src/config/images.ts`.
+If you replace or add a photo, update its credit entry there. CC BY images must stay credited.
+
+The Gallery shows labelled placeholder frames until real, approved photos of the shop are added in `src/config/photos.ts`.
 
 ## Contact form
 

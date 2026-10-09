@@ -99,10 +99,10 @@ export function ContactForm({ token, initialStatus }: { token: string; initialSt
 
   const inputCls = (invalid: boolean) =>
     cx(
-      "block w-full rounded-xl border bg-white px-4 py-3 text-base text-ink placeholder:text-muted/70",
+      "block w-full rounded-[3px] border bg-white px-4 py-3 text-base text-ink placeholder:text-muted/70",
       "transition-[border-color,box-shadow] duration-200 outline-none",
-      "focus:border-brand-600 focus:ring-4 focus:ring-brand-500/20",
-      invalid ? "border-red-600 focus:border-red-600 focus:ring-red-500/20" : "border-line hover:border-brand-200",
+      "focus:border-teal focus:ring-4 focus:ring-turquoise/20",
+      invalid ? "border-red-600 focus:border-red-600 focus:ring-red-500/20" : "border-line hover:border-teal/40",
     );
 
   const err = (f: Field) =>
@@ -124,7 +124,7 @@ export function ContactForm({ token, initialStatus }: { token: string; initialSt
       method="post"
       noValidate
       onSubmit={onSubmit}
-      className="space-y-6"
+      className="space-y-6 [&>[role=status]:empty]:hidden"
       aria-describedby={`${uid}-required`}
     >
       <div
@@ -135,13 +135,13 @@ export function ContactForm({ token, initialStatus }: { token: string; initialSt
         className="outline-none"
       >
         {state.kind === "success" && (
-          <div className="flex gap-3 rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-emerald-900">
+          <div className="flex gap-3 border-l-4 border-emerald-600 bg-emerald-50 p-4 text-emerald-900">
             <CircleCheck aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
             <p>{state.message}</p>
           </div>
         )}
         {state.kind === "error" && (
-          <div className="flex gap-3 rounded-xl border border-red-300 bg-red-50 p-4 text-red-900">
+          <div className="flex gap-3 border-l-4 border-red-700 bg-red-50 p-4 text-red-900">
             <CircleAlert aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
             <p>{state.message}</p>
           </div>
@@ -149,7 +149,7 @@ export function ContactForm({ token, initialStatus }: { token: string; initialSt
       </div>
 
       <p id={`${uid}-required`} className="text-sm text-muted">
-        Fields marked <span aria-hidden="true" className="font-semibold text-accent-700">*</span>
+        Fields marked <span aria-hidden="true" className="font-semibold text-orange-deep">*</span>
         <span className="sr-only">with an asterisk</span> are required.
       </p>
 
@@ -162,8 +162,8 @@ export function ContactForm({ token, initialStatus }: { token: string; initialSt
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor={`${uid}-name`} className="mb-2 block font-semibold text-ink">
-            Name <span aria-hidden="true" className="text-accent-700">*</span>
+          <label htmlFor={`${uid}-name`} className="mb-2 block font-semibold text-teal">
+            Name <span aria-hidden="true" className="text-orange-deep">*</span>
           </label>
           <input
             id={`${uid}-name`}
@@ -179,8 +179,8 @@ export function ContactForm({ token, initialStatus }: { token: string; initialSt
           {err("name")}
         </div>
         <div>
-          <label htmlFor={`${uid}-email`} className="mb-2 block font-semibold text-ink">
-            Email <span aria-hidden="true" className="text-accent-700">*</span>
+          <label htmlFor={`${uid}-email`} className="mb-2 block font-semibold text-teal">
+            Email <span aria-hidden="true" className="text-orange-deep">*</span>
           </label>
           <input
             id={`${uid}-email`}
@@ -199,7 +199,7 @@ export function ContactForm({ token, initialStatus }: { token: string; initialSt
       </div>
 
       <div>
-        <label htmlFor={`${uid}-phone`} className="mb-2 block font-semibold text-ink">
+        <label htmlFor={`${uid}-phone`} className="mb-2 block font-semibold text-teal">
           Phone <span className="font-normal text-muted">(optional)</span>
         </label>
         <input
@@ -217,8 +217,8 @@ export function ContactForm({ token, initialStatus }: { token: string; initialSt
       </div>
 
       <div>
-        <label htmlFor={`${uid}-message`} className="mb-2 block font-semibold text-ink">
-          Message <span aria-hidden="true" className="text-accent-700">*</span>
+        <label htmlFor={`${uid}-message`} className="mb-2 block font-semibold text-teal">
+          Message <span aria-hidden="true" className="text-orange-deep">*</span>
         </label>
         <textarea
           id={`${uid}-message`}
@@ -249,14 +249,14 @@ export function ContactForm({ token, initialStatus }: { token: string; initialSt
             required
             aria-invalid={Boolean(fieldErrors.consent)}
             aria-describedby={described("consent")}
-            className="mt-1 size-5 shrink-0 cursor-pointer rounded accent-brand-700"
+            className="mt-1 size-5 shrink-0 cursor-pointer rounded accent-teal"
           />
           <label htmlFor={`${uid}-consent`} className="cursor-pointer text-muted">
             I understand my details will be used to reply to my message, as described in the{" "}
-            <Link href="/privacy" className="font-semibold text-brand-700 underline underline-offset-2 hover:text-brand-900">
+            <Link href="/privacy" className="font-semibold text-turquoise-ink underline underline-offset-2 hover:text-teal">
               privacy notice
             </Link>
-            . <span aria-hidden="true" className="text-accent-700">*</span>
+            . <span aria-hidden="true" className="text-orange-deep">*</span>
           </label>
         </div>
         {err("consent")}
