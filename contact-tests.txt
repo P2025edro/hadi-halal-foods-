@@ -1,0 +1,11 @@
+PASS  GET is rejected  — status 405
+PASS  missing token rejected
+PASS  forged token rejected
+PASS  instant submission flagged too_fast
+PASS  honeypot rejected
+PASS  invalid fields reported  — {"name":"Please enter your name.","email":"Please enter a valid email address.","message":"Please write a little more (at least 10 characters).","consent":"Please confirm you have read the privacy notice."}
+PASS  valid submission truthfully not_configured  — Our online contact form isn’t connected yet, so your message was NOT sent. Please contact us in store in the meantime.
+PASS  no-JS form post redirects with status  — https://hadi-halal-foods.vercel.app/contact?status=not_configured#contact-form
+PASS  no-JS status banner rendered
+
+All contact checks passed
