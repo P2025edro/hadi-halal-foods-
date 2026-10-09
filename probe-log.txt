@@ -1,0 +1,38 @@
++ UA='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
++ mkdir -p out/probe
++ cd out/probe
++ curl -sL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36' -o page.html -w '%{http_code} %{url_effective}\n' https://stocksnap.io/photo/RXWC2PDCQQ
+403 https://stocksnap.io/photo/RXWC2PDCQQ
++ grep -oE 'https?://[^"'\'' ]*(RXWC2PDCQQ)[^"'\'' ]*' page.html
++ sort -u
++ grep -oiE '[^"]*download[^"]*' page.html
++ sort -u
++ head -30
++ curl -sIL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36' -e https://stocksnap.io/photo/food-eat-RXWC2PDCQQ https://stocksnap.io/download-photo/RXWC2PDCQQ
++ head -30
+HTTP/2 403 
+date: Fri, 09 Oct 2026 15:21:51 GMT
+content-type: text/html; charset=UTF-8
+content-length: 5755
+accept-ch: Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA
+cf-mitigated: challenge
+content-security-policy: default-src 'none'; script-src 'nonce-2yjGW0mNBg5tewluM4wcu5' 'unsafe-eval' https://challenges.cloudflare.com; script-src-attr 'none'; style-src 'unsafe-inline'; img-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com blob:; child-src 'self' https://challenges.cloudflare.com blob:; worker-src blob:; form-action http: https:; base-uri 'self'
+server: cloudflare
+critical-ch: Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA
+cross-origin-embedder-policy: require-corp
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: same-origin
+origin-agent-cluster: ?1
+permissions-policy: accelerometer=(),camera=(),clipboard-read=(),clipboard-write=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),payment=(),publickey-credentials-get=(),screen-wake-lock=(),serial=(),sync-xhr=(),usb=(),xr-spatial-tracking=*
+referrer-policy: same-origin
+server-timing: chlray;desc="a47e60a38fe881dc"
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=TwYjSxZj9vX%2FhzIzwTg2gibSsuPZLkIBCsXuc8Cab73jPGzN9p2mefATx2ZpEa7j6H5OXucvINIoi4SFLT6fPwTyDYnGSw3o3oGE5cJYzzfSkkXC2i%2FZZdgl53bD9A%3D%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-ray: a47e60a38fe881dc-IAD
+
++ curl -s -o ov.json -w '%{http_code}\n' 'https://api.openverse.org/v1/images/?q=food%20eat&source=stocksnap&page_size=20'
+200
++ head -c 400 ov.json
+{"result_count":225,"page_count":12,"page_size":20,"page":1,"results":[{"id":"999206d1-4879-43d8-8a01-638951960937","title":"Food Eat","indexed_on":"2021-11-01T23:12:09.897557Z","foreign_landing_url":"https://stocksnap.io/photo/food-eat-3VLGQNBZP2","url":"https://cdn.stocksnap.io/img-thumbs/960w/3VLGQNBZP2.jpg","creator":"Artur Rutkowski","creator_url":"https://stocksnap.io/author/30556","license"
