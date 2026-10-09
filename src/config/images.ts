@@ -145,14 +145,14 @@ export const library = {
     width: 960,
     height: 639,
     alt: "Open sacks of lentils, beans, grains and seeds",
-    credit: { title: "Beans Legumes", author: "Paul Morris", source: "StockSnap", url: stocksnap("U2OWEI2S84"), licence: "CC0", licenceUrl: CC0 },
+    credit: { title: "Beans Legumes", author: "Paul Morris", source: "StockSnap", url: stocksnap("beans-legumes-U2OWEI2S84"), licence: "CC0", licenceUrl: CC0 },
   },
   cookies: {
     src: "/images/photos/cookies.jpg",
     width: 960,
     height: 640,
     alt: "A stack of chocolate chip cookies",
-    credit: { title: "Cookies", author: "StockSnap contributor", source: "StockSnap", url: stocksnap("8GDGE8GXMT"), licence: "CC0", licenceUrl: CC0 },
+    credit: { title: "Chocolate Chips", author: "Lisa Fotios", source: "StockSnap", url: stocksnap("chocolate-chips-8GDGE8GXMT"), licence: "CC0", licenceUrl: CC0 },
   },
   newspaper: {
     src: "/images/photos/newspaper.jpg",
@@ -160,14 +160,14 @@ export const library = {
     height: 640,
     alt: "A folded newspaper next to a cup of coffee on a wooden table",
     focus: "60% 60%",
-    credit: { title: "Still Items", author: "Markus Spiske", source: "StockSnap", url: stocksnap("91SCNRRD25"), licence: "CC0", licenceUrl: CC0 },
+    credit: { title: "Still Items", author: "Markus Spiske", source: "StockSnap", url: stocksnap("still-items-91SCNRRD25"), licence: "CC0", licenceUrl: CC0 },
   },
   lemons: {
     src: "/images/photos/lemons.jpg",
     width: 960,
     height: 638,
     alt: "Whole and halved lemons on a white cloth",
-    credit: { title: "Lemons Fruits", author: "StockSnap contributor", source: "StockSnap", url: stocksnap("W28QPZPAK6"), licence: "CC0", licenceUrl: CC0 },
+    credit: { title: "Lemons Fruits", author: "Lauren Mancke", source: "StockSnap", url: stocksnap("lemons-fruits-W28QPZPAK6"), licence: "CC0", licenceUrl: CC0 },
   },
   appleBasket: {
     src: "/images/photos/apple-basket.jpg",
