@@ -1,5 +1,5 @@
 """Search Wikimedia Commons for large, openly licensed photos and build labelled contact sheets."""
-import json, io, os, re, urllib.request, urllib.parse, concurrent.futures as cf
+import json, io, os, re, time, urllib.request, urllib.parse, concurrent.futures as cf
 from PIL import Image, ImageDraw, ImageFont
 UA = {"User-Agent": "HadiSitePhotoResearch/1.0 (https://github.com/P2025edro; contact via repo)"}
 API = "https://commons.wikimedia.org/w/api.php"
@@ -14,6 +14,7 @@ for job in jobs:
     params = {"action": "query", "format": "json", "generator": "search", "gsrnamespace": 6, "gsrlimit": 30,
               "gsrsearch": job["q"] + " filew:>2800 filetype:bitmap", "prop": "imageinfo",
               "iiprop": "url|size|extmetadata", "iiurlwidth": 400}
+    time.sleep(4)
     try:
         data = json.loads(get(API + "?" + urllib.parse.urlencode(params)))
     except Exception as e:
@@ -30,7 +31,9 @@ for job in jobs:
     def th(p):
         try: return Image.open(io.BytesIO(get(p["thumb"]))).convert("RGB")
         except Exception: return None
-    with cf.ThreadPoolExecutor(8) as ex: ims = list(ex.map(th, items))
+    ims = []
+    for p in items:
+        ims.append(th(p)); time.sleep(0.4)
     W, H, cols = 300, 210, 5; rows = max(1, (len(items)+cols-1)//cols)
     sheet = Image.new("RGB", (cols*W, rows*(H+22)), "white"); d = ImageDraw.Draw(sheet)
     for p, im in zip(items, ims):

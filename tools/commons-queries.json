@@ -1,12 +1,50 @@
 [
- {"key":"veg-market","q":"vegetables market stall"},
- {"key":"leeks","q":"leeks market"},
- {"key":"produce-crates","q":"fresh produce crates"},
- {"key":"greengrocer","q":"greengrocer vegetables"},
- {"key":"tomatoes-market","q":"tomatoes market"},
- {"key":"spice-market","q":"spices market sacks"},
- {"key":"fruit-stall","q":"fruit stall oranges"},
- {"key":"citrus","q":"clementines"},
- {"key":"pulses","q":"lentils beans market"},
- {"key":"herbs","q":"fresh herbs bunch"}
+ {
+  "key": "lamb",
+  "q": "lamb chops raw"
+ },
+ {
+  "key": "butcher",
+  "q": "butcher meat display"
+ },
+ {
+  "key": "chicken",
+  "q": "raw chicken"
+ },
+ {
+  "key": "spice-bowls",
+  "q": "spices bowls"
+ },
+ {
+  "key": "rice-sacks",
+  "q": "rice sacks market"
+ },
+ {
+  "key": "milk",
+  "q": "milk bottle"
+ },
+ {
+  "key": "dairy",
+  "q": "yogurt cheese butter"
+ },
+ {
+  "key": "biscuits",
+  "q": "biscuits cookies"
+ },
+ {
+  "key": "chocolate",
+  "q": "chocolate bars"
+ },
+ {
+  "key": "newspapers",
+  "q": "newspapers stack"
+ },
+ {
+  "key": "phone",
+  "q": "mobile phone hand"
+ },
+ {
+  "key": "drinks",
+  "q": "drinks fridge shop"
+ }
 ]
