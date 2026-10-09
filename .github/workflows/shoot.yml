@@ -2,7 +2,7 @@ name: screenshot-live
 on:
   push:
     branches: [qa-tools]
-    paths: [tools/shoot.mjs, tools/trigger.txt, .github/workflows/shoot.yml]
+    paths: [tools/shoot.mjs, tools/trigger.txt, tools/test-contact.mjs, .github/workflows/shoot.yml]
 permissions:
   contents: write
 jobs:
@@ -15,6 +15,7 @@ jobs:
         with: { node-version: 22 }
       - run: npm i --no-save playwright@1.55.0 && npx playwright install --with-deps chromium
       - run: mkdir -p out && node tools/shoot.mjs > out/run.txt 2>&1 || true
+      - run: BASE_URL=https://hadi-halal-foods.vercel.app node tools/test-contact.mjs > out/contact-tests.txt 2>&1 || true
       - if: always()
         run: |
           cd out && git init -q -b qa-shots && git config user.name qa-bot && git config user.email qa-bot@users.noreply.github.com
