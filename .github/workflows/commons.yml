@@ -1,0 +1,19 @@
+name: commons-research
+on:
+  push:
+    branches: [qa-tools]
+    paths: [tools/commons-queries.json, tools/commons.py, .github/workflows/commons.yml]
+permissions:
+  contents: write
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q pillow
+      - run: mkdir -p out && python tools/commons.py > out/run.txt 2>&1
+      - if: always()
+        run: |
+          cd out && git init -q -b qa-commons && git config user.name qa-bot && git config user.email qa-bot@users.noreply.github.com
+          git add -A && git commit -qm "commons research" && git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" qa-commons
